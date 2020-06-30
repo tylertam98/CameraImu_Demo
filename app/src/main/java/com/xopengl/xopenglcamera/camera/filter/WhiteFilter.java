@@ -10,6 +10,6 @@ import com.xopengl.xopenglcamera.R;
  */
 public class WhiteFilter extends BaseFilter{
     public WhiteFilter(Context context) {
-        super(context, R.raw.screen_vert, R.raw.white_frag);
+        super(context, R.raw.screen_vert, R.raw.gray_frag);
     }
 }

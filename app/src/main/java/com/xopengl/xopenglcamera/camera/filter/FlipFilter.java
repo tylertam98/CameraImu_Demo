@@ -10,16 +10,16 @@ import com.xopengl.xopenglcamera.R;
  */
 public class FlipFilter extends BaseFilter{
     public FlipFilter(Context context) {
-        super(context, R.raw.screen_vert, R.raw.screen_frag);
+        super(context, R.raw.screen_vert, R.raw.coldwarm_frag);
     }
 
-    @Override
-    protected void initCoord() {
-        TEXTURE = new float[]{ 0f,0f,
-                0f,1f,
-                1f,0f,
-                1f,1f,
-               };
-        super.initCoord();
-    }
+//    @Override
+//    protected void initCoord() {
+//        TEXTURE = new float[]{ 0f,0f,
+//                0f,1f,
+//                1f,0f,
+//                1f,1f,
+//               };
+//        super.initCoord();
+//    }
 }

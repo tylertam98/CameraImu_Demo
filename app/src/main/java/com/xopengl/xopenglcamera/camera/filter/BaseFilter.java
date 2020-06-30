@@ -15,7 +15,7 @@ import java.nio.FloatBuffer;
  */
 public abstract class BaseFilter {
     protected int mProgram;
-    protected int vPosition,vCoord,vMatrix,vTexture;
+    protected int vPosition,vCoord,vMatrix,vTexture,uChangeColor;
     protected int mWidth, mHeight;
     protected FloatBuffer vPostionBuffer;
     protected float[] POSITION = new float[]{-1f,-1f,
@@ -30,6 +30,11 @@ public abstract class BaseFilter {
             0f,1f};
     protected float[] mtx = new float[16];
 
+    //暖色的颜色。是加强R/G来完成。这里注意的是颜色值在[0,1]之间
+    float[] warmFilterColorData = {0.5f, 0.1f, 0.0f};
+    //冷色系的调整。简单的就是增加B的分量
+    float[] coolFilterColorData = {0.0f, 0.0f, 0.1f};
+
     // 初始化
     public BaseFilter(Context context,int vertRawId,int fragRawId){
         initilize(context,vertRawId,fragRawId);
@@ -43,6 +48,7 @@ public abstract class BaseFilter {
         vCoord = GLES20.glGetAttribLocation(mProgram,"vCoord");
         vMatrix = GLES20.glGetUniformLocation(mProgram,"vMatrix");
         vTexture = GLES20.glGetUniformLocation(mProgram,"vTexture");
+        uChangeColor = GLES20.glGetUniformLocation(mProgram, "u_ChangeColor");
     }
 
     protected void initCoord(){
@@ -93,6 +99,10 @@ public abstract class BaseFilter {
         GLES20.glBindTexture(GLES11Ext.GL_SAMPLER_EXTERNAL_OES,textureId);
         // 传递参数
         GLES20.glUniform1i(vTexture,0);
+        //暖色调
+        GLES20.glUniform3fv(uChangeColor, 1, warmFilterColorData, 0);
+//        //或者。冷色调
+//        GLES20.glUniform3fv(uChangeColor, 1, coolFilterColorData, 0);
 
         //参数传递完毕,通知 opengl开始画画
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,0,4);

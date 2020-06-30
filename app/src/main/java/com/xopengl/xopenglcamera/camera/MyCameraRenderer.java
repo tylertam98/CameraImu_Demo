@@ -50,7 +50,7 @@ public class MyCameraRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // 打开前置摄像头
-        cameraHelper = new CameraHelper(Camera.CameraInfo.CAMERA_FACING_FRONT);
+        cameraHelper = new CameraHelper(Camera.CameraInfo.CAMERA_FACING_BACK);
         mTextures = new int[1];
         GLES20.glGenTextures(mTextures.length,mTextures,0);
         surfaceTexture = new SurfaceTexture(mTextures[0]);
